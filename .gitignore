@@ -1,0 +1,6 @@
+data/ 
+images_raw/ 
+plastic_env/ 
+__pycache__/ 
+*.pyc 
+models/best_stage1.pth 
