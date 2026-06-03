@@ -76,42 +76,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildHeader() {
+ Widget _buildHeader() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: primaryGreen,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.eco, color: Colors.white, size: 22),
-              ),
-              const SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    'NSBM',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: primaryGreen,
-                    ),
-                  ),
-                  Text(
-                    'Green University Town',
-                    style: TextStyle(fontSize: 10, color: textGrey),
-                  ),
-                ],
-              ),
-            ],
+          Image.asset(
+            'assets/images/nsbm_logo.png',
+            height: 48,
+            fit: BoxFit.contain,
           ),
           GestureDetector(
             onTap: () => Navigator.push(
@@ -135,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildHeroBanner() {
+Widget _buildHeroBanner() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
@@ -143,84 +117,96 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 180,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          gradient: const LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [primaryGreen, lightBlue],
+          image: const DecorationImage(
+            image: AssetImage('assets/images/nsbm_campus.png'),
+            fit: BoxFit.cover,
           ),
         ),
-        child: Stack(
-          children: [
-            Positioned(
-              right: 16,
-              top: 16,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(20),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black.withOpacity(0.1),
+                Colors.black.withOpacity(0.6),
+              ],
+            ),
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                right: 16,
+                top: 16,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: const [
+                      Icon(Icons.wb_sunny, color: Colors.white, size: 16),
+                      SizedBox(width: 4),
+                      Text('30°c', style: TextStyle(color: Colors.white, fontSize: 12)),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  children: const [
-                    Icon(Icons.wb_sunny, color: Colors.white, size: 16),
-                    SizedBox(width: 4),
-                    Text('30°c', style: TextStyle(color: Colors.white, fontSize: 12)),
+              ),
+              Positioned(
+                bottom: 20,
+                left: 20,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _getGreeting(),
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 14,
+                      ),
+                    ),
+                    Text(
+                      _getFirstName(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.white.withOpacity(0.3)),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.eco, color: Colors.white, size: 14),
+                          const SizedBox(width: 4),
+                          Text(
+                            '${_user?.totalPoints ?? 0} Green Points',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
-            Positioned(
-              bottom: 20,
-              left: 20,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _getGreeting(),
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14,
-                    ),
-                  ),
-                  Text(
-                    _getFirstName(),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.eco, color: Colors.white, size: 14),
-                        const SizedBox(width: 4),
-                        Text(
-                          '${_user?.totalPoints ?? 0} Green Points',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
-
   Widget _buildMenuGrid() {
     final List<Map<String, dynamic>> menuItems = [
       {'title': 'Time Table', 'icon': Icons.calendar_today, 'color': const Color(0xFF1976D2)},
@@ -229,12 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
       {'title': 'Payments', 'icon': Icons.payment, 'color': const Color(0xFFE64A19)},
       {'title': 'Gym & Pool', 'icon': Icons.fitness_center, 'color': const Color(0xFF388E3C)},
       {'title': 'Gate In/Out', 'icon': Icons.sensor_door, 'color': const Color(0xFF5D4037)},
-      {
-        'title': 'Green Points',
-        'icon': Icons.recycling,
-        'color': primaryGreen,
-        'isGreen': true,
-      },
+      {'title': 'Green Points', 'icon': Icons.recycling, 'color': primaryGreen},
     ];
 
     return Padding(
@@ -251,10 +232,10 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: menuItems.length,
         itemBuilder: (context, index) {
           final item = menuItems[index];
-          final isGreen = item['isGreen'] == true;
+          final isGreenPoints = item['title'] == 'Green Points';
           return GestureDetector(
             onTap: () {
-              if (isGreen) {
+              if (isGreenPoints) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -265,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: isGreen ? primaryGreen : Colors.white,
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
@@ -282,14 +263,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 52,
                     height: 52,
                     decoration: BoxDecoration(
-                      color: isGreen
-                          ? Colors.white.withOpacity(0.2)
-                          : (item['color'] as Color).withOpacity(0.1),
+                      color: (item['color'] as Color).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Icon(
                       item['icon'] as IconData,
-                      color: isGreen ? Colors.white : item['color'] as Color,
+                      color: item['color'] as Color,
                       size: 28,
                     ),
                   ),
@@ -297,10 +276,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     item['title'] as String,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: isGreen ? Colors.white : textDark,
+                      color: textDark,
                     ),
                   ),
                 ],
