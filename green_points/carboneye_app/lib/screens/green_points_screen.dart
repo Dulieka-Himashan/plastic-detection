@@ -4,6 +4,10 @@ import '../services/api_service.dart';
 import '../models/user_model.dart';
 import '../models/transaction_model.dart';
 import 'redeem_screen.dart';
+import 'leaderboard_screen.dart';
+import 'user_manual_screen.dart';
+import 'faq_screen.dart';
+import 'impact_screen.dart';
 
 class GreenPointsScreen extends StatefulWidget {
   final String email;
@@ -387,8 +391,7 @@ class _GreenPointsScreenState extends State<GreenPointsScreen>
       ),
     );
   }
-
-  Widget _buildHowItWorks() {
+Widget _buildHowItWorks() {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -414,11 +417,134 @@ class _GreenPointsScreenState extends State<GreenPointsScreen>
           _buildStep('3', 'Camera detects & weighs the plastic'),
           _buildStep('4', 'Earn 0.5 points per gram'),
           _buildStep('5', 'Redeem points for vouchers'),
+          const SizedBox(height: 16),
+          const Divider(),
+          const SizedBox(height: 16),
+          const Text(
+            'More',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: textDark,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: _buildQuickLinkTile(
+                  icon: Icons.emoji_events,
+                  label: 'Leaderboard',
+                  color: const Color(0xFFFF8F00),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => LeaderboardScreen(email: widget.email),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _buildQuickLinkTile(
+                  icon: Icons.eco,
+                  label: 'My Impact',
+                  color: primaryGreen,
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ImpactScreen(email: widget.email),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: _buildQuickLinkTile(
+                  icon: Icons.menu_book,
+                  label: 'User Manual',
+                  color: lightBlue,
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const UserManualScreen(),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _buildQuickLinkTile(
+                  icon: Icons.help_outline,
+                  label: 'FAQ',
+                  color: const Color(0xFF7B1FA2),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const FaqScreen(),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
 
+  Widget _buildQuickLinkTile({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(icon, color: color, size: 20),
+            ),
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(
+                label,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: textDark,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
   Widget _buildStep(String number, String text) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),

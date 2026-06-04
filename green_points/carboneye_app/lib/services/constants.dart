@@ -17,3 +17,4 @@ const Color backgroundGrey = Color(0xFFF5F5F5);
 const Color cardWhite = Color(0xFFFFFFFF);
 const Color textDark = Color(0xFF212121);
 const Color textGrey = Color(0xFF757575);
+const String leaderboardEndpoint = '$baseUrl/leaderboard';
